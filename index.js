@@ -6,7 +6,7 @@ const {DbConnection} = require('./db/DbConnection')
 const app = express()
 // const router = express.Router()
 const PORT = 3000
-const {UsersRouter} = require('./routers/users-router')
+const {UsersRouter} = require('./routes/users-route')
 
 // initialize database connection
 DbConnection()
