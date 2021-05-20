@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const {DbConnection} = require('./db/DbConnection')
 // const {SignupRouter} = require('./routers/users-router')
 const app = express()
@@ -16,5 +17,6 @@ app.get('/' , (req , res) =>{
 })
 
 app.use('/users' , UsersRouter)
+app.use(cors())
 
 app.listen(PORT , () => console.log("Server up and running at " , PORT))
