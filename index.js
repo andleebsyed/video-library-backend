@@ -9,6 +9,7 @@ const app = express()
 const PORT = 3000
 const {UsersRouter} = require('./routes/users-route')
 const {VideosRouter} = require('./routes/videos-route')
+const {LikedVideosRoute} = require('./routes/likedVideos-route')
 
 // initialize database connection
 DbConnection()
@@ -19,6 +20,7 @@ app.get('/' , (req , res) =>{
 
 app.use('/users' , UsersRouter)
 app.use('/videos' , VideosRouter)
+app.use('/liked' , LikedVideosRoute)
 app.use(cors())
 
 app.listen(PORT , () => console.log("Server up and running at " , PORT))

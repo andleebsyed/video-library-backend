@@ -50,7 +50,6 @@ UsersRouter.post('/signin' , async (req , res) =>{
     else{
         res.json({status : true  , allowUser : isRegistered , message : "username and/or password incorrect"})
     }
-    
 
 }
 
