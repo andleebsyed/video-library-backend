@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const bcrypt = require('bcrypt')
 const UsersRouter = express.Router()
 const cors = require('cors')
 UsersRouter.use(cors())
@@ -15,6 +16,8 @@ UsersRouter.post('/signup' , async (req , res) =>{
     const {userDetails} = req.body
     console.log("data coming " , req.body)
     const newUser = new Users(userDetails)
+    const salt = await bcrypt.genSalt(10)
+    newUser.password = await bcrypt.hash(newUser.password , salt)
     const SavedData = await newUser.save()
     res.json({status : true  , message : 'user added successfully'})
   }
@@ -31,33 +34,35 @@ UsersRouter.post('/signup' , async (req , res) =>{
 
 UsersRouter.post('/signin' , async (req , res) =>{
   try{
-  const allUsers = await Users.find({})
-  const {userDetails} = req.body
-  console.log("user details " , req.body)
-  let isRegistered = false
-
-  // check if user is there in collection
-  allUsers.map(singleUser =>{
-    if(singleUser.username === userDetails.username && singleUser.password === userDetails.password){
-      isRegistered = true
-    }
-    }
-    )
-  
-    if(isRegistered){
-      res.json({status : true  , allowUser : isRegistered , message : "logged in successfully"})
+    const {userDetails} = req.body
+    console.log("user details " , req.body)
+  const ourUser = await Users.findOne({username : userDetails.username})
+  console.log("ourUser " , ourUser)
+  if(ourUser){
+    console.log("user matched")
+    const validPassword = await bcrypt.compare(userDetails.password, ourUser.password);
+    if(validPassword){
+      console.log("password also matched")
+      res.json({status : true  , allowUser : true , message : "logged in successfully" , user : {ourUser}
+    })
     }
     else{
-        res.json({status : true  , allowUser : isRegistered , message : "username and/or password incorrect"})
+        res.json({status : true  , allowUser : false , message : "username and/or password incorrect"})
     }
+  }
+  else{
+    res.json({status : true  , allowUser : false , message : "username and/or password incorrect"})
+  }
 
-}
-
-
+  }
   catch(error){
     res.json({status : false , errorDetail : error , errorMesssage : error.message})
   }
 
 })
+
+
+
+  
 
 module.exports = {UsersRouter}
