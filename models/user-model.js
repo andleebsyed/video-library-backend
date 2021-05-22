@@ -15,7 +15,18 @@ const UserSchema = mongoose.Schema({
   password :{
     type : String ,
     required : true
+  } , 
+  likedVideos :[{ 
+    type : mongoose.Schema.Types.ObjectId , 
+    ref : "LikedVideos"
   }
+  ] , 
+  playlists : [
+    {
+      type : mongoose.Schema.Types.ObjectId,
+      ref : "Playlists"
+    }
+  ]
 
 })
 
