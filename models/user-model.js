@@ -18,13 +18,13 @@ const UserSchema = mongoose.Schema({
   } , 
   likedVideos :[{ 
     type : mongoose.Schema.Types.ObjectId , 
-    ref : "LikedVideos"
+    ref : "likedVideos"
   }
   ] , 
   playlists : [
     {
       type : mongoose.Schema.Types.ObjectId,
-      ref : "Playlists"
+      ref : "playlists"
     }
   ]
 

@@ -18,15 +18,16 @@ UsersRouter.post('/signup' , async (req , res) =>{
     const newUser = new Users(userDetails)
     const salt = await bcrypt.genSalt(10)
     newUser.password = await bcrypt.hash(newUser.password , salt)
-    const SavedData = await newUser.save()
-    res.json({status : true  , message : 'user added successfully'})
+    const SavedUser = await newUser.save()
+    console.log("saved data " , SavedUser)
+    res.json({status : true  , message : 'user added successfully' , user : SavedUser})
   }
   catch(error){
     if(error.code === 11000){
-       res.json({status : false , message : "couldn't add user" , errorDetail : error , existingField : Object.keys(error.keyPattern)[0]
+       res.json({status : false , message : "couldn't add user" , errorDetail : error.message , existingField : Object.keys(error.keyPattern)[0]
        })
     }
-    res.json({status : false , message : "couldn't add user" , errorDetail : error})
+    res.json({status : false , message : "couldn't add user" , errorDetail : error.message})
   }
  
 }
@@ -43,7 +44,7 @@ UsersRouter.post('/signin' , async (req , res) =>{
     const validPassword = await bcrypt.compare(userDetails.password, ourUser.password);
     if(validPassword){
       console.log("password also matched")
-      res.json({status : true  , allowUser : true , message : "logged in successfully" , user : {ourUser}
+      res.json({status : true  , allowUser : true , message : "logged in successfully" , user : ourUser
     })
     }
     else{
