@@ -1,5 +1,5 @@
 const {Users} = require('../models/user-model')
-const {Videos} = require('../models/videos-model')
+const {Videos} = require('../models/video-model')
 const express = require('express')
 const LikedVideosRoute = express.Router()
 LikedVideosRoute.route('/all')

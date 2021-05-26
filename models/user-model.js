@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-
-  
-const UserSchema = mongoose.Schema({
+const {Schema , model} = mongoose  
+const UserSchema = Schema({
   username : {
     type : String , 
     required : true , 
@@ -17,19 +16,19 @@ const UserSchema = mongoose.Schema({
     required : true
   } , 
   likedVideos :[{ 
-    type : mongoose.Schema.Types.ObjectId , 
+    type : Schema.Types.ObjectId , 
     ref : "Videos"
   }
   ] , 
   playlists : [
     {
-      type : mongoose.Schema.Types.ObjectId,
+      type : Schema.Types.ObjectId,
       ref : "playlists"
     }
   ]
 
 })
 
-const Users = mongoose.model('Users' , UserSchema , 'users')
+const Users = model('Users' , UserSchema , 'users')
 
 module.exports = {Users}
