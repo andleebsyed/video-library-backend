@@ -11,6 +11,6 @@ const PlaylistSchema = mongoose.Schema({
   }]
 })
 
-const Playlists = mongoose.model('playlist', PlaylistSchema)
+const Playlists = mongoose.model('Playlists', PlaylistSchema , 'playlists')
 
 module.exports = { Playlists }

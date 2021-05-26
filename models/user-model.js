@@ -23,7 +23,7 @@ const UserSchema = Schema({
   playlists : [
     {
       type : Schema.Types.ObjectId,
-      ref : "playlists"
+      ref : "Playlists"
     }
   ]
 
