@@ -3,10 +3,11 @@ const PlaylistsRoute = express.Router()
 const {Playlists} = require('../models/playlist-model')
 const {Users} = require('../models/user-model')
 
-PlaylistsRoute.route('/all')
+PlaylistsRoute.route('/all/:userId')
 .get(async (req , res) =>{
   try{
-    const {userId} = req.body
+    const userId = req.params.userId
+    console.log("userid is " , userId)
         const response    = await Users.findById(userId).populate({
           path : 'playlists' ,
           model : 'Playlists' , 

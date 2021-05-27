@@ -3,12 +3,14 @@ const {Videos} = require('../models/video-model')
 const express = require('express')
 const LikedVideosRoute = express.Router()
 LikedVideosRoute.route('/all')
-.get(async (req , res) =>{
+.post(async (req , res) =>{
   try{
-    const {userId} = req.body
-    const currentUser = await Users.findOne({_id : userId})
-    const likedVideos = await currentUser.populate('likedVideos').execPopulate()  
-    res.json({status : true , message : "fetched successfully" ,   likedVideos})
+    console.log("data comingin body " ,req.body)
+    const {UserId} = req.body
+    console.log("user id coming or not " , UserId)
+    const currentUser = await Users.findOne({_id : UserId})
+    const response = await currentUser.populate('likedVideos').execPopulate()  
+    res.json({status : true , message : "fetched successfully" ,  likedVideos : response.likedVideos})
   } 
   catch(error){
     res.status(500).json({status : false , message : "couldn't fetch the videos" , errMessage : error.message})
@@ -30,7 +32,9 @@ LikedVideosRoute.route('/add')
 })
 LikedVideosRoute.route('/delete')
 .post(async (req , res) =>{
+  
   try{
+    console.log("data in  body of delete" , req.body)
     const {videoId , userId} = req.body
     const user = await  Users.findOne({_id : userId})
     const updatedLikedVideos = user.likedVideos.filter(currentVideoId => String(currentVideoId) !== String(videoId))
