@@ -56,7 +56,7 @@ PlaylistsRoute.route('/addvideo')
     }
   })
 
-PlaylistsRoute.route('/deletevideo')
+PlaylistsRoute.route('/removevideo')
 .post(async (req , res) =>{
   try{
     const {playlistId , videoId } = req.body
@@ -67,6 +67,21 @@ PlaylistsRoute.route('/deletevideo')
   }
   catch(error){
     res.status(500).json({status : false , message : "couldn't delete the video" ,  errormessage  : error.message})
+  }
+})
+
+PlaylistsRoute.route('/removeplaylist')
+.post(async (req , res) =>{
+  try{
+      const {userId , playlistId} = req.body
+      const user = await Users.findById(userId)
+      user.playlists = user.playlists.filter(iteratorId => String(iteratorId) !== String(playlistId))
+      const response = await user.save()
+      await Playlists.findByIdAndRemove(playlistId)
+      res.send({status : true , message : "playlist removed successfully" , response})
+  }
+  catch(error){
+    res.status(500).json({status : false , message : "couldn't remove the playlist " , errMessage : error.message})
   }
 })
 
