@@ -8,6 +8,8 @@ const PlaylistSchema = mongoose.Schema({
   videos: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Videos" 
+    , 
+    required : true
   }]
 })
 
