@@ -61,14 +61,12 @@ PlaylistsRoute.route('/deletevideo')
   try{
     const {playlistId , videoId } = req.body
     const playlist = await Playlists.findById(playlistId)
-    // const newVideos
     playlist.videos = playlist.videos.filter(currentVideoId => String(currentVideoId) !== String(videoId))
     const response = await playlist.save()
-    // const response = await Playlists.update({_id : playlistId} , {videos : newVideos})
     res.json({status : true , message : "video removed from playlist successfully" ,  response })
   }
   catch(error){
-    res.json({status : false , message : "couldn't delete the video" ,  errormessage  : error.message})
+    res.status(500).json({status : false , message : "couldn't delete the video" ,  errormessage  : error.message})
   }
 })
 
