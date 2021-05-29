@@ -22,14 +22,14 @@ AccountRoute.route('/update')
   
     async function checkForExistingEmail(){
     const ifEmailPresent = await Users.findOne({email : newEmail})
-    if(ifEmailPresent){
+    if(ifEmailPresent && ifEmailPresent._id === userId){
       throw {message : "Couldn't Update, email already linked to a different account"}
     }
   }
 
    async function checkForExistingUserName(){
     const ifUsernamePresent = await Users.findOne({username : newUsername})
-    if(ifUsernamePresent){
+    if(ifUsernamePresent && ifUsernamePresent._id === userId){
       throw {message : "Couldn't Update, username already exists"}
     }
   }
