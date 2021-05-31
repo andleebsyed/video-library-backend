@@ -10,11 +10,11 @@ const UpdatePassword = async (req , res) =>{
       const salt = await bcrypt.genSalt(10)
       currentUser.password = await bcrypt.hash(newPassword , salt)
       await currentUser.save()
-        res.json({status : true   , message : "Password updated successfully"
+        res.json({status : true   , message : "Password updated."
       })
     }
     else{
-        res.json({status : false, message : "Old Password incorrect.Try again with correct password" })
+        res.json({status : false, message : "Current Password incorrect.Try again with correct password." })
     }
   }
   catch(error){
