@@ -5,8 +5,8 @@ const LikedVideosRoute = express.Router()
 
 LikedVideosRoute.route('/all').post(verifyToken, GetLikedVideos)
 
-LikedVideosRoute.route('/add').post(AddToLikedVideos)
+LikedVideosRoute.route('/add').post(verifyToken, AddToLikedVideos)
 
-LikedVideosRoute.route('/delete').post(DeleteFromLiked)
+LikedVideosRoute.route('/delete').post(verifyToken, DeleteFromLiked)
 
 module.exports = {LikedVideosRoute}
