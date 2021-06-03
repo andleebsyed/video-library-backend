@@ -33,7 +33,7 @@ const UpdateUser = async (req , res) =>{
     await checkForExistingUserName()
     
    const response = await Users.findOneAndUpdate({_id : userId} , {username : newUsername , email : newEmail} , {new : true})
-   res.json({status : true , message : "User Updated successfully" , response})
+   res.json({status : true , message : "User Updated successfully"})
   }
   catch(error){
     res.status(500).json({status : false , message : "couldn't update user" , error : error, errMessage: error.message})

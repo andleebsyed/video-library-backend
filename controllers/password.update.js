@@ -6,7 +6,6 @@ const UpdatePassword = async (req , res) =>{
     const currentUser = await Users.findById(userId)
     const validPassword = await bcrypt.compare(oldPassword, currentUser.password);
     if(validPassword){
-      console.log("passwords matched")
       const salt = await bcrypt.genSalt(10)
       currentUser.password = await bcrypt.hash(newPassword , salt)
       await currentUser.save()
@@ -18,7 +17,7 @@ const UpdatePassword = async (req , res) =>{
     }
   }
   catch(error){
-    res.json({status : false , error : true , message : error.message})
+    res.json({status : false  , message : error.message})
   }
 }
 
