@@ -8,13 +8,13 @@ const {verifyToken} = require('../middlewares/verifyToken')
 
 PlaylistsRoute.route('/all').post(verifyToken, GetUserPlaylists)
 
-PlaylistsRoute.route('/newplaylist').post(NewPlaylist)
+PlaylistsRoute.route('/newplaylist').post(verifyToken, NewPlaylist)
 
-PlaylistsRoute.route('/addvideo').post(AddVideoToPlaylist)
+PlaylistsRoute.route('/addvideo').post(verifyToken, AddVideoToPlaylist)
 
-PlaylistsRoute.route('/removevideo').post(RemoveVideoFromPlaylist)
+PlaylistsRoute.route('/removevideo').post(verifyToken, RemoveVideoFromPlaylist)
 
-PlaylistsRoute.route('/removeplaylist').post(RemovePlaylist)
+PlaylistsRoute.route('/removeplaylist').post(verifyToken, RemovePlaylist)
 
 
 module.exports = { PlaylistsRoute }
