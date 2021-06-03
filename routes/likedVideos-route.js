@@ -1,10 +1,9 @@
-// const {Users} = require('../models/user-model')
-// const {Videos} = require('../models/video-model')
 const express = require('express')
 const {GetLikedVideos, AddToLikedVideos, DeleteFromLiked} = require('../controllers/likedVideos')
+const {verifyToken} = require('../middlewares/verifyToken')
 const LikedVideosRoute = express.Router()
 
-LikedVideosRoute.route('/all').post(GetLikedVideos)
+LikedVideosRoute.route('/all').post(verifyToken, GetLikedVideos)
 
 LikedVideosRoute.route('/add').post(AddToLikedVideos)
 
