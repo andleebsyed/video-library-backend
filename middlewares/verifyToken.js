@@ -5,7 +5,6 @@ function verifyToken(req, res, next){
       const secret = process.env.SECRET
       const decoded = jwt.verify(token , secret)
       req.body = {...req.body, userId : decoded.userId} 
-      console.log(req.body)
       next()
   }
   catch(error){
