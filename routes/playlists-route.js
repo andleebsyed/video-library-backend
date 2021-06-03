@@ -4,7 +4,9 @@ const { Playlists } = require('../models/playlist-model')
 const { Users } = require('../models/user-model')
 const {GetUserPlaylists, NewPlaylist, AddVideoToPlaylist, RemoveVideoFromPlaylist, RemovePlaylist} = require('../controllers/playlists')
 
-PlaylistsRoute.route('/all/:userId').get(GetUserPlaylists)
+const {verifyToken} = require('../middlewares/verifyToken')
+
+PlaylistsRoute.route('/all').post(verifyToken, GetUserPlaylists)
 
 PlaylistsRoute.route('/newplaylist').post(NewPlaylist)
 

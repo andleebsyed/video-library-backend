@@ -2,7 +2,7 @@ const { Playlists } = require('../models/playlist-model')
 const { Users } = require('../models/user-model')
   const GetUserPlaylists = async (req, res) => {
     try {
-      const userId = req.params.userId
+      const {userId} = req.body
       const response = await Users.findById(userId).populate({
         path: 'playlists',
         model: 'Playlists',
