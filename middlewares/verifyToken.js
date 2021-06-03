@@ -4,8 +4,8 @@ function verifyToken(req, res, next){
       const token = req.headers.authorization
       const secret = process.env.SECRET
       const decoded = jwt.verify(token , secret)
-        next()
-        // res.json({status : true, message : "user authenticated"})
+      req.body = {userId : decoded.userId} 
+      next()
   }
   catch(error){
     res.status(401).json({status : false, message : "couldn't authorize user" ,errMessage : error.message})

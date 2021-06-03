@@ -2,8 +2,8 @@ const {Users} = require('../models/user-model')
 const {Videos} = require('../models/video-model')
 const GetLikedVideos =  async (req , res) =>{
   try{
-    const {UserId} = req.body
-    const currentUser = await Users.findOne({_id : UserId})
+    const {userId} = req.body
+    const currentUser = await Users.findOne({_id : userId})
     const response = await currentUser.populate('likedVideos').execPopulate()  
     res.json({status : true , message : "fetched successfully" ,  likedVideos : response.likedVideos})
   } 
