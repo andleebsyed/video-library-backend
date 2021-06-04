@@ -24,4 +24,18 @@ const AddNote = async (req, res) => {
   }
 }
 
-module.exports = {AddNote}
+const GetNotes = async (req, res) => {
+  try{
+    const {videoId , userId} = req.body
+    const data = await Notes.findOne({videoId : videoId, userId : userId})
+    const notes = data.notes
+    res.json({status : true , notes, message : "notes fetched successfully"})
+  }
+  catch(error){
+    res.json({status : false , message : "couldn't fetch notes", errMessage : error.message})
+  }
+  
+  }
+ 
+
+module.exports = {AddNote, GetNotes}
