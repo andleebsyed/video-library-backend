@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
-const {Schema} = mongoose
+const {Schema, model} = mongoose
 const NotesSchema = new Schema({
-  notes: {
-    type : string, 
+  notes: [{
+    type : String, 
     required : true
-  },
+  }],
   userId :{
-    type : Schema.Types.ObjectId
+    type : Schema.Types.ObjectId,
     required : true
   },
   videoId : {
-    type : Schema.Types.ObjectId
+    type : Schema.Types.ObjectId,
     required : true
   },
 })

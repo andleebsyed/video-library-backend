@@ -15,7 +15,7 @@ const {LikedVideosRoute} = require('./routes/likedVideos-route')
 const {PlaylistsRoute} = require('./routes/playlists-route')
 const {AccountRoute} = require('./routes/account-route')
 const {PasswordRoute} = require('./routes/password-update-route')
-
+const {NotesRoute} = require('./routes/notes-route')
 
 // initialize database connection
 DbConnection()
@@ -30,6 +30,7 @@ app.use('/liked' , LikedVideosRoute)
 app.use('/playlists' , PlaylistsRoute )
 app.use('/account' , AccountRoute)
 app.use('/password' , PasswordRoute)
+app.use('/notes' , NotesRoute)
 // use error handling middlewares 
 
 
