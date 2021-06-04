@@ -5,7 +5,6 @@ const AddNote = async (req, res) => {
     const {videoId, userId, note} = req.body
     const data = {notes :  [note], videoId, userId }
     const currentNotes = await Notes.findOne({videoId: videoId, userId : userId })
-    console.log("these are my notes currently ", currentNotes)
     if(currentNotes === null){
       const initialNote = await new Notes(data)
       const response = await initialNote.save()
@@ -13,9 +12,8 @@ const AddNote = async (req, res) => {
       
     }
     else{
-      console.log(currentNotes.notes)
       currentNotes.notes.push(note)
-     const response =  await currentNotes.save()
+      const response =  await currentNotes.save()
       res.json({status : true, message : "note saved successfully", response})
     }
   }
@@ -32,10 +30,22 @@ const GetNotes = async (req, res) => {
     res.json({status : true , notes, message : "notes fetched successfully"})
   }
   catch(error){
-    res.json({status : false , message : "couldn't fetch notes", errMessage : error.message})
+    res.status(500).json({status : false , message : "couldn't fetch notes", errMessage : error.message})
   }
-  
   }
- 
 
-module.exports = {AddNote, GetNotes}
+ const DeleteNote = async (req, res) =>{
+   try{
+    const {videoId, userId, note} = req.body
+    const data = await Notes.findOne({userId : userId, videoId : videoId})
+    const updatedNotes =  data.notes.filter(iteratorNote => iteratorNote!== note)
+    const response = await Notes.updateOne( {notes : updatedNotes, videoId : videoId, userId : userId })
+
+    res.json({status : true , message : " note deleted successfully", response}) 
+   }
+   catch(error){
+     res.status(500).json({status : false, message : "couldn't delete note", errMessage : error.message})
+   }
+ }
+
+module.exports = {AddNote, GetNotes, DeleteNote}
