@@ -39,7 +39,7 @@ const GetNotes = async (req, res) => {
     const {videoId, userId, note} = req.body
     const data = await Notes.findOne({userId : userId, videoId : videoId})
     const updatedNotes =  data.notes.filter(iteratorNote => iteratorNote!== note)
-    const response = await Notes.updateOne( {notes : updatedNotes, videoId : videoId, userId : userId })
+    const response = await Notes.updateOne( {videoId : videoId, userId : userId }, {notes : updatedNotes})
 
     res.json({status : true , message : " note deleted successfully", response}) 
    }
