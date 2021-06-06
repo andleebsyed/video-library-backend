@@ -27,7 +27,7 @@ const { Users } = require('../models/user-model')
       const user = await Users.findOne({ _id: userId })
       user.playlists.push(response._id)
       const userSaveResponse = await user.save()
-      res.json({ status: true, message: "playlist added successfully", userSaveResponse })
+      res.json({ status: true, message: "playlist added successfully", newPlaylist : response })
     }
     catch (error) {
       res.status(500).json({ status: false, message: "couldn't add the playlist", errMesssage: error.message })
